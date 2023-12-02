@@ -1,11 +1,27 @@
 import React,{useState} from 'react'
-import Header from '../Components/Header'
+import { initializeApp } from "firebase/app";
+import 'firebase/firestore';
+
+//Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyC1K82aTXX64DEcvfglJEr2Uw7vNNrEz0g",
+    authDomain: "webpe-28ef8.firebaseapp.com",
+    projectId: "webpe-28ef8",
+    storageBucket: "webpe-28ef8.appspot.com",
+    messagingSenderId: "514825054502",
+    appId: "1:514825054502:web:0074a246042726f6edb9e7",
+    measurementId: "G-9XP1S44R2F"
+};
+
+//Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 const Transactions=()=>{
 const [walletAddress, setWalletAddress] = useState('');
-  const [transactionAmount, setTransactionAmount] = useState('');
-  const [errors, setErrors] = useState({});
+const [transactionAmount, setTransactionAmount] = useState('');
+const [errors, setErrors] = useState({});
 
+//Validate the form
   const validateForm = () => {
     let formValid = true;
     const errorsObj = {};
@@ -30,13 +46,38 @@ const [walletAddress, setWalletAddress] = useState('');
     return formValid;
   };
 
-  const handleSubmit = (e) => {
+  //Send data to firebase when submit button is clicked
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      // Perform action on valid form submission
-      console.log('Form is valid. Do something...');
-    } else {
-      console.log('Form submission halted due to validation errors');
+    const validForm=validateForm();
+    if(validForm){
+        const data = {
+            walletAddress,
+            transactionAmount: Number(transactionAmount),
+            timestamp: new Date().toISOString() 
+          };
+      
+          try {
+            const response = await fetch('https://webpe-28ef8-default-rtdb.firebaseio.com/transactions.json', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            });
+      
+            if (response.ok) {
+              console.log('Data saved to Realtime Database');
+              setWalletAddress('');
+              setTransactionAmount('');
+            } else {
+              console.error('Failed to save data to Realtime Database');
+            }
+          } catch (error) {
+            console.error('Error saving data to Realtime Database:', error);
+          }
+    }else{
+        console.log("Invalid data , form not submitted");
     }
   };
 
