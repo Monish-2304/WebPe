@@ -27,12 +27,12 @@ const [errors, setErrors] = useState({});
     const errorsObj = {};
 
     if (!walletAddress.trim()) {
-      errorsObj.walletAddress = 'Please enter wallet address';
+      errorsObj.walletAddress = 'Wallet address field cannot be empty';
       formValid = false;
     }
 
     if (!transactionAmount.trim()) {
-      errorsObj.transactionAmount = 'Please enter transaction amount';
+      errorsObj.transactionAmount = 'Please enter a transaction amount';
       formValid = false;
     } else if (isNaN(transactionAmount)) {
       errorsObj.transactionAmount = 'Please enter valid transaction amount';

@@ -1,6 +1,9 @@
 import React ,{useEffect,useState} from 'react'
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 
 const Data = () => {
+    const[totalData,setTotalData]=useState(0);
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [filters, setFilters] = useState([]);
@@ -18,6 +21,8 @@ const Data = () => {
         const data=await fetch("https://jsonplaceholder.typicode.com/posts");
         const json=await data.json();
         setData(json);
+        setTotalData(json.length)
+        console.log(totalData);
         setFilteredData(json);
         console.log(json);
      } catch (error) {
@@ -82,6 +87,46 @@ const Data = () => {
         ));
       };
 
+      const getPostsByUserId = (userId) => {
+        if (!userId) return 0;
+    
+        const postsByUser = data.filter((item) => item.userId === parseInt(userId));
+        return postsByUser.length;
+      };
+    
+      // Get the number of posts for the selected user ID
+      const postsBySelectedUser = getPostsByUserId(selectedFiltersMap['userId']);
+    
+      // Data for the pie chart
+      const pieChartData = [
+        {
+          name: 'Posts by User',
+          y: postsBySelectedUser,
+        },
+        {
+          name: 'Total Posts',
+          y: totalData - postsBySelectedUser,
+        },
+      ];
+    
+      // Highcharts pie chart configuration
+      const chartOptions = {
+        chart: {
+          type: 'pie',
+          width: 300,
+          height: 300,
+        },
+        title: {
+          text: 'Posts by Selected User ID vs Total Posts',
+        },
+        series: [
+          {
+            name: 'Posts',
+            data: pieChartData,
+          },
+        ],
+      };
+
   return (
     <div className="flex">
     <div className="flex flex-col m-4">
@@ -120,9 +165,6 @@ const Data = () => {
           </div>
         ))}
       </div>
-
-      {/* Apply and Clear Filter Buttons */}
-      
     </div>
 
     {/*apply and clear filters*/}
@@ -144,6 +186,7 @@ const Data = () => {
     </div>
     
     {/*display filtered data*/}
+    <div className="flex flex-row items-start">
     <div>
       <div>
         <h2 className="text-xl my-2 font-bold">Data</h2>
@@ -167,6 +210,12 @@ const Data = () => {
         </div>
     </div>
     </div>
+    <div className="mt-12">
+        <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+    </div>
+    </div>
+    
+    
     </div>
     </div>
   )

@@ -3,8 +3,8 @@ import Header from '../Components/Header'
 
 const Home = () => {
   return (
-    <div className="p-0 m-0 bg-[#CCE4F0]">
-    home
+    <div className="flex justify-center text-lg font-bold bg-[#CCE4F0]">
+    Home Page
     </div>
   )
 }
