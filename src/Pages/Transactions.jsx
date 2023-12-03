@@ -4,7 +4,13 @@ import 'firebase/firestore';
 
 //Firebase configuration
 const firebaseConfig = {
-   //paste firebase config here (IMP)
+    apiKey: "AIzaSyC1K82aTXX64DEcvfglJEr2Uw7vNNrEz0g",
+    authDomain: "webpe-28ef8.firebaseapp.com",
+    projectId: "webpe-28ef8",
+    storageBucket: "webpe-28ef8.appspot.com",
+    messagingSenderId: "514825054502",
+    appId: "1:514825054502:web:0074a246042726f6edb9e7",
+    measurementId: "G-9XP1S44R2F"
 };
 
 //Initialize Firebase
@@ -84,39 +90,41 @@ const [submitSuccess, setSubmitSuccess] = useState(false);
     <div>
       <div className="flex flex-col m-4">
         <form onSubmit={handleSubmit}>
-        <div className="flex flex-col">
+        
+        <div className="flex flex-col md:flex-row md:items-center">
         <div className="flex items-center">
-            <span className="m-2 mr-12">Wallet Address</span>
+        <div className="mt-2 ml-2 mr-12">Wallet Address</div>
             <input
-              className="w-44 border border-gray-200 m-4"
+              className="w-44 border border-gray-400 rounded-md my-3 md:m-4"
               type="text"
               value={walletAddress}
               onChange={(e) => setWalletAddress(e.target.value)}
             />
-            <div>{errors.walletAddress && (
-              <div className="flex flex-col ml-2">
-                <div className="text-red-500">{errors.walletAddress}</div>
-              </div>
-            )}</div>
-            
-          </div>
         </div>
-          <div className="flex flex-col justify-start">
-          <div className="flex items-center">
-            <span className="m-2 mr-3">Transaction Amount</span>
+           
+            {errors.walletAddress && (
+                <div className="m-2 text-red-500">{errors.walletAddress}</div>
+            )}
+            </div>
+
+         
+          <div className="flex flex-col md:flex-row md:items-center">
+          <div className="flex items-center"> 
+          <div className="mt-2 ml-2 mr-3">Transaction Amount</div>
             <input
-              className="w-44 border border-gray-200 m-4"
+              className="w-44 border border-gray-400 rounded-md my-3 md:m-4"
               type="number"
               value={transactionAmount}
               onChange={(e) => setTransactionAmount(e.target.value)}
-            />
-            {errors.transactionAmount &&  <div className="ml-2">
-                <span className="text-red-500">{errors.transactionAmount}</span>
+            /></div>
+           
+            {errors.transactionAmount &&  <div>
+                <div className="m-2 text-red-500">{errors.transactionAmount}</div>
               </div>}
           </div>
-          </div>
+        
          
-          <button className="flex ml-2 bg-blue-500 w-fit text-white font-bold py-2 px-4 rounded-md">
+          <button className="flex m-3 ml-2 bg-blue-500 w-fit text-white font-bold py-2 px-4 rounded-md">
             Submit
           </button>
           {submitSuccess && (
