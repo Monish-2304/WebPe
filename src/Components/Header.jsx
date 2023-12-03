@@ -1,19 +1,44 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link } from 'react-router-dom';
 const Header = () => {
-  return (
-    <div className="flex justify-between items-center">
-      <div>
-      <img className="h-14 p-2 md:ml-4" alt='logo' src='https://img.freepik.com/free-photo/dollar-coin-clay-icon-cute-handmade-finance-creative-craft-graphic_53876-126143.jpg?w=740&t=st=1701501515~exp=1701502115~hmac=02b2089076489480a8a500c56da13749856338bbc7afd8724623be1e06715af1'/>
-      </div>
-      
-        <ul className="flex gap-x-4 items-center mr-8">
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-            <li className="cursor-pointer hover:text-lg w-[100px] text-center"><Link to="/">Home</Link></li>
-            <li className="cursor-pointer hover:text-lg  w-[100px] text-center"><Link to="/transactions">Transactions</Link></li>
-            <li className="cursor-pointer hover:text-lg w-[100px] text-center"><Link to="/data">Data</Link></li>
-        </ul>
-   
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+  return (
+    <div className="bg-white">
+    <div className="flex p-2 justify-between items-center ">
+    <div className="flex items-center">
+            <img className="z-10 h-10 md:mr-2" alt="logo" src="https://static.vecteezy.com/system/resources/thumbnails/005/567/661/small_2x/rupee-icon-indian-currency-symbol-illustration-coin-symbol-free-vector.jpg"/>
+            <div className="text-xl font-bold hidden md:block">WebPe</div>
+        </div>
+       
+        <div className={`${isMenuOpen ? 'absolute top-[6%] left-0 w-full bg-white py-2 shadow-md' : 'hidden md:block md:min-h-fit md:flex md:w-fit md:h-fit md:top-[0%] bg-white'}`}>
+        
+            <ul className="flex flex-col align-middle items-center md:flex-row  gap-[4vh]">
+                <li onClick={toggleMenu} className="cursor-pointer hover:text-lg hover:text-blue-300 w-[100px]  text-center">
+                <Link to="/">Home</Link>
+                </li>
+                <li onClick={toggleMenu} className="cursor-pointer hover:text-lg w-[100px] hover:text-blue-300  text-center">
+                <Link to="/transactions">Transactions</Link>
+                </li>
+                <li onClick={toggleMenu} className="cursor-pointer hover:text-lg w-[100px] hover:text-blue-300  text-center">
+                <Link to="/data">Data</Link>
+                </li>
+            </ul>
+        </div>
+        <div className="flex block md:hidden">
+        <button
+        className="text-xl focus:outline-none"
+        onClick={toggleMenu}
+        >
+        &#9776;
+      </button>
+
+        </div>
+    </div>
+    
     </div>
   )
 }

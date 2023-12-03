@@ -20,6 +20,7 @@ const Transactions=()=>{
 const [walletAddress, setWalletAddress] = useState('');
 const [transactionAmount, setTransactionAmount] = useState('');
 const [errors, setErrors] = useState({});
+const [submitSuccess, setSubmitSuccess] = useState(false);
 
 //Validate the form
   const validateForm = () => {
@@ -46,7 +47,7 @@ const [errors, setErrors] = useState({});
     return formValid;
   };
 
-  //Send data to firebase when submit button is clicked
+  //Send data to firebase when submit button is clicked after validating form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validForm=validateForm();
@@ -70,6 +71,10 @@ const [errors, setErrors] = useState({});
               console.log('Data saved to Realtime Database');
               setWalletAddress('');
               setTransactionAmount('');
+              setSubmitSuccess(true); 
+              setTimeout(() => {
+          setSubmitSuccess(false);
+        }, 3000); 
             } else {
               console.error('Failed to save data to Realtime Database');
             }
@@ -85,7 +90,8 @@ const [errors, setErrors] = useState({});
     <div>
       <div className="flex flex-col m-4">
         <form onSubmit={handleSubmit}>
-          <div className="flex items-center">
+        <div className="flex flex-col">
+        <div className="flex items-center">
             <span className="m-2 mr-12">Wallet Address</span>
             <input
               className="w-44 border border-gray-200 m-4"
@@ -93,8 +99,15 @@ const [errors, setErrors] = useState({});
               value={walletAddress}
               onChange={(e) => setWalletAddress(e.target.value)}
             />
-            {errors.walletAddress && <span className="text-red-500">{errors.walletAddress}</span>}
+            <div>{errors.walletAddress && (
+              <div className="flex flex-col ml-2">
+                <div className="text-red-500">{errors.walletAddress}</div>
+              </div>
+            )}</div>
+            
           </div>
+        </div>
+          <div className="flex flex-col justify-start">
           <div className="flex items-center">
             <span className="m-2 mr-3">Transaction Amount</span>
             <input
@@ -103,13 +116,20 @@ const [errors, setErrors] = useState({});
               value={transactionAmount}
               onChange={(e) => setTransactionAmount(e.target.value)}
             />
-            {errors.transactionAmount && (
-              <span className="text-red-500">{errors.transactionAmount}</span>
-            )}
+            {errors.transactionAmount &&  <div className="ml-2">
+                <span className="text-red-500">{errors.transactionAmount}</span>
+              </div>}
           </div>
+          </div>
+         
           <button className="flex ml-2 bg-blue-500 w-fit text-white font-bold py-2 px-4 rounded-md">
             Submit
           </button>
+          {submitSuccess && (
+            <div className="text-green-700 my-2">
+              Data Submitted Successfully
+            </div>
+          )}
         </form>
       </div>
     </div>

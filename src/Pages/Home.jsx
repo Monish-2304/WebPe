@@ -3,8 +3,9 @@ import Header from '../Components/Header'
 
 const Home = () => {
   return (
-    <div className="flex justify-center text-lg font-bold bg-[#CCE4F0]">
-    Home Page
+    <div>
+    <div className="flex justify-center text-lg font-bold">Home Page</div>
+    
     </div>
   )
 }

@@ -79,7 +79,7 @@ const Data = () => {
       //render table based on filtered data
       const renderTableRows = () => {
         return filteredData.map((item) => (
-          <tr className="border border-2 border-gray-400" key={item.id}>
+          <tr className="border border-2 border-gray-400 bg-white" key={item.id}>
             <td className="border border-2 border-gray-400">{item.userId}</td>
             <td className="border border-2 border-gray-400">{item.id}</td>
             <td className="border border-2 border-gray-400">{item.title}</td>
@@ -87,6 +87,7 @@ const Data = () => {
         ));
       };
 
+      // Get posts by selected userId
       const getPostsByUserId = (userId) => {
         if (!userId) return 0;
     
@@ -94,7 +95,7 @@ const Data = () => {
         return postsByUser.length;
       };
     
-      // Get the number of posts for the selected user ID
+      // Number of posts for the selected user ID
       const postsBySelectedUser = getPostsByUserId(selectedFiltersMap['userId']);
     
       // Data for the pie chart
@@ -128,29 +129,30 @@ const Data = () => {
       };
 
   return (
-    <div className="flex">
-    <div className="flex flex-col m-4">
-    <div className="flex flex-col">
-    <div className="flex space-x-4 py-4"><select
+    <div className="flex max-w-xs m-2 flex-wrap md:max-w-fit">
+    <div className="flex flex-wrap flex-col sm:m-2 md:m-4">
+    <div className="flex flex-col flex-wrap">
+    <div className="flex items-center flex-wrap  max-w-md space-y-4 md:max-w-full space-x-1 md:space-x-6 py-2 md:py-4">
+    <select
           value={selectedFilter}
           onChange={(e) => setSelectedFilter(e.target.value)}
-          className="border border-gray-300 px-3 py-2 rounded-md"
+          className="border border-gray-300 mt-3 px-3 py-2 rounded-md"
         >
           <option value="">Select Filter</option>
           <option value="userId">User Id</option>
           <option value="id">Post Id</option>
           <option value="title">Title</option> 
-        </select>
-        <input
+    </select>
+    <input
           type="text"
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
-          className="border border-gray-300 px-3 py-2 rounded-md flex-1"
+          className="border mr-4 md:max-w-3xl border-gray-300 px-3 py-2 rounded-md"
           placeholder="Enter text..."
         />
         <button
           onClick={addFilter}
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded-md"
+          className="bg-blue-500 text-white font-bold py-2 px-3 rounded-md"
         >
           Add Filter
         </button></div>
@@ -168,8 +170,7 @@ const Data = () => {
     </div>
 
     {/*apply and clear filters*/}
-    <div>
-    <div className="flex space-x-4">
+    <div className="flex flex-wrap space-x-4">
         <button
           onClick={applyFilters}
           className="bg-green-500 text-white font-bold py-2 px-4 rounded-md"
@@ -183,14 +184,14 @@ const Data = () => {
           Clear Filters
         </button>
     </div>
-    </div>
+    
     
     {/*display filtered data*/}
-    <div className="flex flex-row items-start">
+    <div className="flex flex-col md:flex-row items-start">
     <div>
       <div>
         <h2 className="text-xl my-2 font-bold">Data</h2>
-        <div className="m-2 overflow-x-auto">
+        <div className="overflow-x-auto">
           <table className="max-w-screen">
             <thead className="border border-3 border-black">
               <tr>
@@ -210,7 +211,7 @@ const Data = () => {
         </div>
     </div>
     </div>
-    <div className="mt-12">
+    <div className="m-6 md:mt-12">
         <HighchartsReact highcharts={Highcharts} options={chartOptions} />
     </div>
     </div>

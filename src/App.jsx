@@ -9,7 +9,7 @@ import Header from './Components/Header'
 
 function App() {
    return (
-    <div className=" sm:w-full p-2 bg-[#CAE2EE] min-h-screen">
+    <div className=" sm:w-full bg-[#CAE2EE] min-h-screen min-w-full">
     <Header/>
     <Outlet/>
     </div>
