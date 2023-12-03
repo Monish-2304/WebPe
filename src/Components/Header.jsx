@@ -6,6 +6,10 @@ const Header = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className="bg-white">
     <div className="flex p-2 justify-between items-center ">
@@ -14,16 +18,16 @@ const Header = () => {
             <div className="text-xl font-bold hidden md:block">WebPe</div>
         </div>
        
-        <div className={`${isMenuOpen ? 'absolute top-[6%] left-0 w-full bg-white py-2 shadow-md' : 'hidden md:block md:min-h-fit md:flex md:w-fit md:h-fit md:top-[0%] bg-white'}`}>
+        <div className={`${isMenuOpen ? 'absolute top-[6%] left-0 w-full bg-white py-2 shadow-md z-10' : 'hidden md:block md:min-h-fit md:flex md:w-fit md:h-fit md:top-[0%] bg-white'}`}>
         
             <ul className="flex flex-col align-middle items-center md:flex-row  gap-[4vh]">
-                <li onClick={toggleMenu} className="cursor-pointer hover:text-lg hover:text-blue-300 w-[100px]  text-center">
+                <li onClick={closeMenu} className="cursor-pointer hover:text-lg hover:text-blue-300 w-[100px]  text-center">
                 <Link to="/">Home</Link>
                 </li>
-                <li onClick={toggleMenu} className="cursor-pointer hover:text-lg w-[100px] hover:text-blue-300  text-center">
+                <li onClick={closeMenu} className="cursor-pointer hover:text-lg w-[100px] hover:text-blue-300  text-center">
                 <Link to="/transactions">Transactions</Link>
                 </li>
-                <li onClick={toggleMenu} className="cursor-pointer hover:text-lg w-[100px] hover:text-blue-300  text-center">
+                <li onClick={closeMenu} className="cursor-pointer hover:text-lg w-[100px] hover:text-blue-300  text-center">
                 <Link to="/data">Data</Link>
                 </li>
             </ul>
