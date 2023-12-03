@@ -1,8 +1,43 @@
-# React + Vite
+# WebPe : A simple website made using React.Js
+Live Url: "https://web-pe.netlify.app/"
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Technology tools/components used
+- React.Js
+- Tailwind CSS
+- Firebase
+- HighCharts
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### How to run this project:
+
+1. Clone the repository from GitHub:
+```bash
+https://github.com/Monish-2304/WebPe
+```
+2. Install dependencies for both frontend:
+First open the folder in which you installed the project using terminal and then install all dependencies using below command
+```bash
+npm install
+```
+3. For running WebPe, navigate to the source folder and start:
+```bash
+npm run dev
+```
+
+### Features implemented:
+
+1. Implemented React Router for seamless navigation between different pages
+
+2. Proper form validation and error handling for data in Transactions page
+
+3. Data is stored in realtime on firebase when clicked on submit.
+
+4. Posts Data is fetched and displayed in tabular format , by default data related to all posts are displayed.
+
+5. Filters or even combination of filters can be applied to get particular data.
+
+6. Implemented Pie chart using High Charts library for analysing selected user data.
+
+
+
